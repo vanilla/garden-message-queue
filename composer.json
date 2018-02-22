@@ -1,0 +1,26 @@
+{
+    "name": "vanilla/garden-message-queue",
+    "description": "A message queue implementation for Vanilla.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eric Vachaviolos",
+            "email": "eric.v@vanillaforums.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:vanilla/queue-interop.git"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "vanilla/queue-interop": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Garden\\MessageQueue\\": "src"
+        }
+    }
+}

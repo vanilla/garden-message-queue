@@ -2,15 +2,14 @@
 
 /**
  * @copyright 2009-2018 Vanilla Forums Inc.
- * @license GPLv2
+ * @license MIT
  */
 
 namespace Garden\MessageQueue;
 
-use Garden\QueueInterop\ExecutableJobInterface;
+use Garden\QueueInterop\JobBridgeInterface;
 use Garden\QueueInterop\JobContextInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
+use Garden\QueueInterop\RunnableJobInterface;
 
 
 /**
@@ -20,30 +19,17 @@ use Psr\Log\NullLogger;
  *
  * @author Eric Vachaviolos <eric.v@vanillaforums.com>
  * @package garden-message-queue
- * @version 1.0
  */
-abstract class AbstractJob implements ExecutableJobInterface {
+abstract class AbstractJob implements RunnableJobInterface {
 
     /**
      *
-     * @var JobContextInterface
+     * @var JobBridgeInterface
      */
-    private $jobContext;
+    private $implementation;
 
-    /**
-     *
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    final public function __construct(JobContextInterface $jobContext, LoggerInterface $logger = null) {
-        $this->jobContext = $jobContext;
-        $this->logger = $logger;
-
-        // Provides a Null logger if none has been set
-        if (is_null($this->logger)) {
-            $this->logger = new NullLogger();
-        }
+    final public function __construct(JobBridgeInterface $implementation) {
+        $this->implementation = $implementation;
     }
 
     /**
@@ -52,7 +38,7 @@ abstract class AbstractJob implements ExecutableJobInterface {
      * @return JobContextInterface
      */
     public function getJobContext() {
-        return $this->jobContext;
+        return $this->implementation->getJobContext();
     }
 
     /**
@@ -62,7 +48,7 @@ abstract class AbstractJob implements ExecutableJobInterface {
      * @return mixed
      */
     public function get($name) {
-        return $this->jobContext->get($name);
+        return $this->implementation->getJobContext()->get($name);
     }
 
 
@@ -72,7 +58,7 @@ abstract class AbstractJob implements ExecutableJobInterface {
      * @return array
      */
     public function getData(): array {
-        return $this->jobContext->getData();
+        return $this->implementation->getJobContext()->getData();
     }
 
     /**
@@ -94,7 +80,7 @@ abstract class AbstractJob implements ExecutableJobInterface {
             'message' => $message
         ], $context);
 
-        $this->logger->log($level, $message, $context);
+        $this->implementation->getLogger()->log($level, $message, $context);
     }
 
     /**

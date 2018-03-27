@@ -47,8 +47,8 @@ abstract class AbstractJob implements RunnableJobInterface {
      * @param string $name
      * @return mixed
      */
-    public function get($name) {
-        return $this->implementation->getJobContext()->get($name);
+    public function get($name, $default = null) {
+        return $this->implementation->getJobContext()->get($name, $default);
     }
 
 

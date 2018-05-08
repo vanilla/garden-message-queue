@@ -29,8 +29,22 @@ abstract class AbstractJob implements RunnableJobInterface {
      */
     private $implementation;
 
+    /**
+     * Job start time
+     * @var float
+     */
+    protected $startTime;
+
+    /**
+     * Job duration
+     * @var float
+     */
+    protected $duration;
+
     final public function __construct(JobBridgeInterface $implementation) {
         $this->implementation = $implementation;
+        $this->setStatus(JobStatus::RECEIVED);
+        $this->startTime = microtime(true);
     }
 
     /**
@@ -52,7 +66,6 @@ abstract class AbstractJob implements RunnableJobInterface {
         return $this->getJobContext()->get($name, $default);
     }
 
-
     /**
      * Get job data
      *
@@ -60,6 +73,33 @@ abstract class AbstractJob implements RunnableJobInterface {
      */
     public function getData(): array {
         return $this->getJobContext()->getData();
+    }
+
+    /**
+     * Get execution time
+     *
+     * @return float
+     */
+    public function getDuration(): float {
+        return $this->duration ? $this->duration : microtime(true) - $this->startTime;
+    }
+
+    /**
+     * Get job status
+     *
+     * @return string
+     */
+    public function getStatus(): string {
+        return $this->getJobContext()->getStatus();
+    }
+
+    /**
+     * Set job status
+     *
+     * @param string $status
+     */
+    public function setStatus(string $status) {
+        $this->getJobContext()->setStatus($status);
     }
 
     /**
@@ -91,6 +131,7 @@ abstract class AbstractJob implements RunnableJobInterface {
      */
     public function setup() {
         $this->getJobContext()->setStatus(JobStatus::INPROGRESS);
+        $this->setStatus(JobStatus::INPROGRESS);
     }
 
     /**
@@ -100,6 +141,8 @@ abstract class AbstractJob implements RunnableJobInterface {
      */
     public function teardown() {
         $this->getJobContext()->setStatus(JobStatus::COMPLETE);
+        $this->setStatus(JobStatus::COMPLETE);
+        $this->duration = microtime(true) - $this->startTime;
     }
 
 }

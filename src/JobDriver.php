@@ -202,10 +202,14 @@ class JobDriver implements JobDriverInterface {
 
         $this->logger->notice('Job is executing: ' . $type . ' - ' .  serialize($args));
 
+        // Setup job
+        $jobPayload->setup();
+
         // Run the job payload
-        $job->setStatus(JobStatus::INPROGRESS);
         $jobPayload->run();
-        $job->setStatus(JobStatus::COMPLETE);
+
+        // Teardown job
+        $jobPayload->teardown();
     }
 
 }

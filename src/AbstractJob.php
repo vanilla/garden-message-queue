@@ -7,6 +7,7 @@
 
 namespace Garden\MessageQueue;
 
+use Garden\QueueInterop\Job\JobStatus;
 use Garden\QueueInterop\JobBridgeInterface;
 use Garden\QueueInterop\JobContextInterface;
 use Garden\QueueInterop\RunnableJobInterface;
@@ -48,7 +49,7 @@ abstract class AbstractJob implements RunnableJobInterface {
      * @return mixed
      */
     public function get($name, $default = null) {
-        return $this->implementation->getJobContext()->get($name, $default);
+        return $this->getJobContext()->get($name, $default);
     }
 
 
@@ -58,7 +59,7 @@ abstract class AbstractJob implements RunnableJobInterface {
      * @return array
      */
     public function getData(): array {
-        return $this->implementation->getJobContext()->getData();
+        return $this->getJobContext()->getData();
     }
 
     /**
@@ -89,7 +90,7 @@ abstract class AbstractJob implements RunnableJobInterface {
      * Called before the 'run' method
      */
     public function setup() {
-        // no-op
+        $this->getJobContext()->setStatus(JobStatus::INPROGRESS);
     }
 
     /**
@@ -98,7 +99,7 @@ abstract class AbstractJob implements RunnableJobInterface {
      * Called after the 'run' method
      */
     public function teardown() {
-        // no-op
+        $this->getJobContext()->setStatus(JobStatus::COMPLETE);
     }
 
 }

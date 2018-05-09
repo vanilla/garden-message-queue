@@ -210,6 +210,9 @@ class JobDriver implements JobDriverInterface {
 
         // Teardown job
         $jobPayload->teardown();
+
+        // Destroy the job context after the payload was executed
+        $this->di->setInstance(JobContextInterface::class, null);
     }
 
 }

@@ -7,11 +7,10 @@
 
 namespace Garden\MessageQueue;
 
+use Garden\QueueInterop\Job\JobInterface;
 use Garden\QueueInterop\Job\JobStatus;
 use Garden\QueueInterop\JobBridgeInterface;
 use Garden\QueueInterop\JobContextInterface;
-use Garden\QueueInterop\RunnableJobInterface;
-
 
 /**
  * Abstract job.
@@ -21,7 +20,7 @@ use Garden\QueueInterop\RunnableJobInterface;
  * @author Eric Vachaviolos <eric.v@vanillaforums.com>
  * @package garden-message-queue
  */
-abstract class AbstractJob implements RunnableJobInterface {
+abstract class AbstractJob implements JobInterface {
 
     /**
      *
@@ -57,12 +56,40 @@ abstract class AbstractJob implements RunnableJobInterface {
     }
 
     /**
+     * Get job ID
+     *
+     * @return string
+     */
+    public function getID(): string {
+        return $this->getJobContext()->getID();
+    }
+
+    /**
+     * Set job id
+     *
+     * @param string $id
+     */
+    public function setID(string $id) {
+        $this->getJobContext()->setID($id);
+    }
+
+    /**
+     * Get the job name
+     *
+     * @return string
+     */
+    public function getName(): string {
+        return static::class;
+    }
+
+    /**
      * Get an item in the job data
      *
      * @param string $name
+     * @param mixed $default
      * @return mixed
      */
-    public function get($name, $default = null) {
+    public function get(string $name, $default = null) {
         return $this->getJobContext()->get($name, $default);
     }
 
@@ -73,6 +100,15 @@ abstract class AbstractJob implements RunnableJobInterface {
      */
     public function getData(): array {
         return $this->getJobContext()->getData();
+    }
+
+    /**
+     * Set job data
+     *
+     * @param array $data
+     */
+    public function setData(array $data) {
+        $this->getJobContext()->setData($data);
     }
 
     /**
@@ -130,7 +166,6 @@ abstract class AbstractJob implements RunnableJobInterface {
      * Called before the 'run' method
      */
     public function setup() {
-        $this->getJobContext()->setStatus(JobStatus::INPROGRESS);
         $this->setStatus(JobStatus::INPROGRESS);
     }
 
@@ -140,7 +175,6 @@ abstract class AbstractJob implements RunnableJobInterface {
      * Called after the 'run' method
      */
     public function teardown() {
-        $this->getJobContext()->setStatus(JobStatus::COMPLETE);
         $this->setStatus(JobStatus::COMPLETE);
         $this->duration = microtime(true) - $this->startTime;
     }

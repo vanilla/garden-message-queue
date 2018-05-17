@@ -1,7 +1,6 @@
 <?php
 
 /**
- * @author Eric Vachaviolos <eric.v@vanillaforums.com>
  * @copyright 2009-2018 Vanilla Forums Inc.
  * @license MIT
  */
@@ -16,15 +15,12 @@ use Garden\Db\Drivers\MySqlDb;
 use Garden\MessageQueue\Bridge\JobBridge;
 use Garden\MessageQueue\VanillaContext;
 use Garden\QueueInterop\DatabaseAwareInterface;
-use Garden\QueueInterop\Implementation\Site;
 use Garden\QueueInterop\Job\JobStatus;
 use Garden\QueueInterop\JobBridgeInterface;
 use Garden\QueueInterop\JobContext;
 use Garden\QueueInterop\JobContextAwareInterface;
 use Garden\QueueInterop\JobContextInterface;
 use Garden\QueueInterop\RunnableJobInterface;
-use Garden\QueueInterop\SiteAwareInterface;
-use Garden\QueueInterop\SiteInterface;
 use Garden\QueueInterop\VanillaContextAwareInterface;
 use Garden\QueueInterop\VanillaContextInterface;
 use PDO;
@@ -110,7 +106,6 @@ class JobDriver implements JobDriverInterface {
                 ->setShared(true)
                 ->addCall('setLogger')
 
-                //
                 // Dataware Aware
                 ->rule(DatabaseAwareInterface::class)
                 ->addCall('setDatabase')
@@ -122,7 +117,6 @@ class JobDriver implements JobDriverInterface {
                 })
                 ->setShared(true)
 
-                //
                 // JobContext Aware
                 ->rule(JobContextAwareInterface::class)
                 ->addCall('setJobContext', [new Reference(JobContextInterface::class)])
@@ -132,16 +126,6 @@ class JobDriver implements JobDriverInterface {
                 ->setClass(JobContext::class)
                 ->setShared(true)
 
-                //
-                // Site Aware
-                ->rule(SiteAwareInterface::class)
-                ->addCall('setSite')
-
-                // Site Implementation
-                ->rule(SiteInterface::class)
-                ->setClass(Site::class)
-
-                //
                 // VanillaContext Aware
                 ->rule(VanillaContextAwareInterface::class)
                 ->addCall('setVanillaContext')

@@ -1,0 +1,213 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "428433198f7b1058a2e7b9b321188293",
+    "packages": [
+        {
+            "name": "psr/container",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "time": "2017-02-14T16:28:37+00:00"
+        },
+        {
+            "name": "vanilla/garden-container",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vanilla/garden-container.git",
+                "reference": "df19515548ed619320a3214f15848f98a5592d15"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vanilla/garden-container/zipball/df19515548ed619320a3214f15848f98a5592d15",
+                "reference": "df19515548ed619320a3214f15848f98a5592d15",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0",
+                "psr/container": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Garden\\Container\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Todd Burry",
+                    "email": "todd@vanillaforums.com"
+                }
+            ],
+            "description": "A dependency injection container.",
+            "time": "2017-05-05T17:50:58+00:00"
+        },
+        {
+            "name": "vanilla/garden-db",
+            "version": "v0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vanilla/garden-db.git",
+                "reference": "f59c10a8720c431ba3899791b19b73b34ceaae91"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vanilla/garden-db/zipball/f59c10a8720c431ba3899791b19b73b34ceaae91",
+                "reference": "f59c10a8720c431ba3899791b19b73b34ceaae91",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "vanilla/garden-schema": "^1.7.5"
+            },
+            "require-dev": {
+                "bobthecow/faker": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Garden\\Db\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Todd Burry",
+                    "email": "todd@vanillaforums.com"
+                }
+            ],
+            "description": "A light but powerful database abstraction layer.",
+            "time": "2018-03-05T18:27:54+00:00"
+        },
+        {
+            "name": "vanilla/garden-schema",
+            "version": "v1.7.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vanilla/garden-schema.git",
+                "reference": "0b478d230e60b5c8f402d84a7ee7809057026011"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vanilla/garden-schema/zipball/0b478d230e60b5c8f402d84a7ee7809057026011",
+                "reference": "0b478d230e60b5c8f402d84a7ee7809057026011",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Garden\\Schema\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Todd Burry",
+                    "email": "todd@vanillaforums.com"
+                }
+            ],
+            "description": "A simple data validation and cleaning library based on JSON Schema.",
+            "time": "2018-04-12T18:10:28+00:00"
+        },
+        {
+            "name": "vanilla/queue-interop",
+            "version": "dev-feature/job-shareable-interfaces",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:vanilla/queue-interop.git",
+                "reference": "d19925e6fd76371fb9ad458a8f71e756b8d81a83"
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Garden\\QueueInterop\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Gunter",
+                    "email": "tim@vanillaforums.com"
+                }
+            ],
+            "description": "Queue interop.",
+            "time": "2018-05-16T20:31:17+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "vanilla/queue-interop": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.0.0"
+    },
+    "platform-dev": []
+}

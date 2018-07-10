@@ -4,8 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "428433198f7b1058a2e7b9b321188293",
+    "content-hash": "989923ab979cb4fc47abec64709dcc73",
     "packages": [
+        {
+            "name": "kaecyra/app-common",
+            "version": "v1.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kaecyra/app-common.git",
+                "reference": "2f141faba6b43916e10159cc967e0e74efb2afa7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kaecyra/app-common/zipball/2f141faba6b43916e10159cc967e0e74efb2afa7",
+                "reference": "2f141faba6b43916e10159cc967e0e74efb2afa7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "psr/container": "^1.0",
+                "psr/log": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kaecyra\\AppCommon\\": "src"
+                },
+                "files": [
+                    "src/map/functions.general.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Gunter",
+                    "email": "tim@vanillaforums.com",
+                    "homepage": "https://vanillaforums.com"
+                }
+            ],
+            "description": "Common app base.",
+            "homepage": "https://github.com/kaecyra/app-common",
+            "keywords": [
+                "app-common"
+            ],
+            "time": "2018-03-05T15:54:16+00:00"
+        },
         {
             "name": "psr/container",
             "version": "1.0.0",
@@ -54,6 +100,53 @@
                 "psr"
             ],
             "time": "2017-02-14T16:28:37+00:00"
+        },
+        {
+            "name": "psr/log",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "vanilla/garden-container",
@@ -134,20 +227,23 @@
         },
         {
             "name": "vanilla/garden-schema",
-            "version": "v1.7.6",
+            "version": "v1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vanilla/garden-schema.git",
-                "reference": "0b478d230e60b5c8f402d84a7ee7809057026011"
+                "reference": "3370db6fe8a2987813a28e64e3afdf95cb3b9443"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vanilla/garden-schema/zipball/0b478d230e60b5c8f402d84a7ee7809057026011",
-                "reference": "0b478d230e60b5c8f402d84a7ee7809057026011",
+                "url": "https://api.github.com/repos/vanilla/garden-schema/zipball/3370db6fe8a2987813a28e64e3afdf95cb3b9443",
+                "reference": "3370db6fe8a2987813a28e64e3afdf95cb3b9443",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6"
             },
             "type": "library",
             "autoload": {
@@ -166,7 +262,7 @@
                 }
             ],
             "description": "A simple data validation and cleaning library based on JSON Schema.",
-            "time": "2018-04-12T18:10:28+00:00"
+            "time": "2018-06-26T20:36:25+00:00"
         },
         {
             "name": "vanilla/queue-interop",
@@ -174,7 +270,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:vanilla/queue-interop.git",
-                "reference": "d19925e6fd76371fb9ad458a8f71e756b8d81a83"
+                "reference": "d19b4411cd075b1fdc3e591f7d174d4d4a7c8a5c"
             },
             "require": {
                 "php": ">=7.0"
@@ -195,7 +291,7 @@
                 }
             ],
             "description": "Queue interop.",
-            "time": "2018-05-16T20:31:17+00:00"
+            "time": "2018-05-29T18:07:35+00:00"
         }
     ],
     "packages-dev": [],

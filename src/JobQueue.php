@@ -11,6 +11,8 @@ use Exception;
 use Garden\Container\Container;
 use Garden\Container\Reference;
 use Garden\EventManager;
+use Garden\QueueInterop\SchedulerAwareInterface;
+use Garden\QueueInterop\SchedulerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -23,7 +25,7 @@ use Psr\Log\NullLogger;
  * @author Eric Vachaviolos <eric.v@vanillaforums.com>
  * @package garden-message-queue
  */
-class JobQueue {
+class JobQueue implements SchedulerInterface {
 
     /**
      * Queued jobs
@@ -93,6 +95,14 @@ class JobQueue {
                 })
                 ->setShared(true)
 
+                // Scheduler Aware
+                ->rule(SchedulerAwareInterface::class)
+                ->addCall('setScheduler')
+
+                // Scheduler service (alias of the JobQueue)
+                ->rule(SchedulerInterface::class)
+                ->setAliasOf('JobQueue')
+
                 // Default NULL logger
                 ->rule(LoggerInterface::class)
                 ->setClass(NullLogger::class)
@@ -120,7 +130,7 @@ class JobQueue {
      * Delegate all queued jobs to the driver for processing.
      */
     protected function processAll() {
-        foreach ($this->jobs as $job) {
+        foreach ($this->jobs as &$job) {
             try {
                 $this->driver->execute($job);
             } catch (Exception $ex) {

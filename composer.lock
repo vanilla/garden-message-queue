@@ -4,54 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "989923ab979cb4fc47abec64709dcc73",
+    "content-hash": "b0c84fd7e6840fd450c0c4fed0b653bc",
     "packages": [
-        {
-            "name": "kaecyra/app-common",
-            "version": "v1.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kaecyra/app-common.git",
-                "reference": "2f141faba6b43916e10159cc967e0e74efb2afa7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kaecyra/app-common/zipball/2f141faba6b43916e10159cc967e0e74efb2afa7",
-                "reference": "2f141faba6b43916e10159cc967e0e74efb2afa7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0",
-                "psr/container": "^1.0",
-                "psr/log": "~1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Kaecyra\\AppCommon\\": "src"
-                },
-                "files": [
-                    "src/map/functions.general.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tim Gunter",
-                    "email": "tim@vanillaforums.com",
-                    "homepage": "https://vanillaforums.com"
-                }
-            ],
-            "description": "Common app base.",
-            "homepage": "https://github.com/kaecyra/app-common",
-            "keywords": [
-                "app-common"
-            ],
-            "time": "2018-03-05T15:54:16+00:00"
-        },
         {
             "name": "psr/container",
             "version": "1.0.0",
@@ -270,7 +224,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:vanilla/queue-interop.git",
-                "reference": "d19b4411cd075b1fdc3e591f7d174d4d4a7c8a5c"
+                "reference": "62b9d06330eceb6455a7eb7d321de85fb99f1084"
             },
             "require": {
                 "php": ">=7.0"
@@ -291,7 +245,7 @@
                 }
             ],
             "description": "Queue interop.",
-            "time": "2018-05-29T18:07:35+00:00"
+            "time": "2018-08-02T16:05:42+00:00"
         }
     ],
     "packages-dev": [],

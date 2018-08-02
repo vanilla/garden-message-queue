@@ -59,13 +59,20 @@ class JobQueue implements SchedulerInterface {
      * @param JobDriverInterface $driver
      * @param LoggerInterface $logger
      */
-    public function __construct(EventManager $eventManager, JobDriverInterface $driver, LoggerInterface $logger) {
+    public function __construct(EventManager $eventManager, JobDriverInterface $driver, LoggerInterface $logger, $config = []) {
         $this->eventManager = $eventManager;
         $this->driver = $driver;
         $this->logger = $logger;
 
         // Hook to process all jobs at the end of the request
-        $this->eventManager->bind('gdn_dispatcher_afterdispatch', function() {
+        $this->eventManager->bind('gdn_dispatcher_afterdispatch', function() use ($config) {
+
+            if (!($config['DisableFastCgiFinishRequest'] ?? false)) {
+                // Finish Flushes all response data to the client
+                // so that job payloads can run without affecting the browser experience
+                fastcgi_finish_request();
+            }
+
             $this->processAll();
         });
     }
@@ -83,7 +90,8 @@ class JobQueue implements SchedulerInterface {
                 ->rule('JobQueue')
                 ->setClass(JobQueue::class)
                 ->setConstructorArgs([
-                    new Reference(['JobDriver'])
+                    new Reference(['JobDriver']),
+                    new Reference(['Gdn_Configuration', 'Garden.MessageQueue'])
                 ])
                 ->setShared(true)
 

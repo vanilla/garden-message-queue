@@ -7,8 +7,8 @@
 
 namespace Garden\MessageQueue;
 
+use Garden\QueueInterop\ConfigInterface;
 use Garden\QueueInterop\VanillaContextInterface;
-use Kaecyra\AppCommon\ConfigInterface;
 
 /**
  * Vanilla context

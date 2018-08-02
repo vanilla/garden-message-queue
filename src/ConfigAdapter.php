@@ -8,7 +8,7 @@
 namespace Garden\MessageQueue;
 
 use Gdn_Configuration;
-use Kaecyra\AppCommon\ConfigInterface;
+use Garden\QueueInterop\ConfigInterface;
 
 /**
  * Config adapter

@@ -8,7 +8,7 @@
 namespace Garden\MessageQueue;
 
 use Gdn_Locale;
-use Kaecyra\AppCommon\ConfigInterface;
+use Garden\QueueInterop\ConfigInterface;
 
 /**
  * Vanilla locale adapter

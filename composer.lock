@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0c84fd7e6840fd450c0c4fed0b653bc",
+    "content-hash": "ef3c0b244c7a20752a1d4b16d9dbe40f",
     "packages": [
         {
             "name": "psr/container",
@@ -220,14 +220,22 @@
         },
         {
             "name": "vanilla/queue-interop",
-            "version": "dev-feature/job-shareable-interfaces",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:vanilla/queue-interop.git",
-                "reference": "62b9d06330eceb6455a7eb7d321de85fb99f1084"
+                "url": "https://github.com/vanilla/queue-interop.git",
+                "reference": "b4ad707865e6f223e6756884ab1c8e9b90241b44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vanilla/queue-interop/zipball/b4ad707865e6f223e6756884ab1c8e9b90241b44",
+                "reference": "b4ad707865e6f223e6756884ab1c8e9b90241b44",
+                "shasum": ""
             },
             "require": {
-                "php": ">=7.0"
+                "php": ">=7.0",
+                "psr/log": "^1.0",
+                "vanilla/garden-db": "^0.1.0"
             },
             "type": "library",
             "autoload": {
@@ -235,6 +243,7 @@
                     "Garden\\QueueInterop\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -245,7 +254,7 @@
                 }
             ],
             "description": "Queue interop.",
-            "time": "2018-08-02T16:05:42+00:00"
+            "time": "2018-08-02T18:38:04+00:00"
         }
     ],
     "packages-dev": [],

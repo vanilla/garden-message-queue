@@ -83,8 +83,6 @@ class JobQueue implements SchedulerInterface {
      * @param Container $di
      */
     public static function bootstrap(Container $di) {
-        $di->removeAlias(LoggerInterface::class);
-
         $di
                 // JobQueue
                 ->rule('JobQueue')
@@ -110,11 +108,22 @@ class JobQueue implements SchedulerInterface {
                 // Scheduler service (alias of the JobQueue)
                 ->rule(SchedulerInterface::class)
                 ->setAliasOf('JobQueue')
-
-                // Default NULL logger
-                ->rule(LoggerInterface::class)
-                ->setClass(NullLogger::class)
         ;
+
+        // Configures the logger
+        if ($di->hasRule(\Vanilla\Logger::class)) {
+            $di
+                ->rule(\Vanilla\Logger::class)
+                ->setFactory(function() {
+                    return \Logger::getLogger();
+                })
+                ->addAlias(LoggerInterface::class);
+        } else {
+            // Defaults to a NULL logger
+            $di
+                ->rule(LoggerInterface::class)
+                ->setClass(NullLogger::class);
+        }
     }
 
     /**

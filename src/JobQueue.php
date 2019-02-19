@@ -1,13 +1,12 @@
 <?php
 
 /**
- * @copyright 2009-2018 Vanilla Forums Inc.
+ * @copyright 2009-2019 Vanilla Forums Inc.
  * @license MIT
  */
 
 namespace Garden\MessageQueue;
 
-use Exception;
 use Garden\Container\Container;
 use Garden\Container\Reference;
 use Garden\EventManager;
@@ -23,6 +22,7 @@ use Psr\Log\NullLogger;
  * delegating to an underlying Job Driver.
  *
  * @author Eric Vachaviolos <eric.v@vanillaforums.com>
+ * @author Eduardo Garcia Julia <eduardo.garciajulia@vanillaforums.com>
  * @package garden-message-queue
  */
 class JobQueue implements SchedulerInterface {
@@ -65,11 +65,17 @@ class JobQueue implements SchedulerInterface {
         $this->logger = $logger;
 
         // Hook to process all jobs at the end of the request
-        $this->eventManager->bind('gdn_dispatcher_afterdispatch', function() use ($config) {
+        $this->eventManager->bind('gdn_dispatcher_BeforeShutdown', function() use ($config) {
+
+            if (count($this->jobs) == 0) {
+                // If there is nothing to do -> return
+                return;
+            }
 
             if (!($config['DisableFastCgiFinishRequest'] ?? false)) {
                 // Finish Flushes all response data to the client
                 // so that job payloads can run without affecting the browser experience
+                session_write_close();
                 fastcgi_finish_request();
             }
 
@@ -150,8 +156,13 @@ class JobQueue implements SchedulerInterface {
         foreach ($this->jobs as &$job) {
             try {
                 $this->driver->execute($job);
-            } catch (Exception $ex) {
-                $this->logger->error("Job failed to execute, exception received: " . $ex->getMessage());
+            } catch (\Throwable $ex) {
+                // We want to be verbose, as this message would mostly never hit the browser (@see DisableFastCgiFinishRequest)
+                $msg = "Job failed to execute";
+                $msg .= ". Message: ".$ex->getMessage();
+                $msg .= ". File: ".$ex->getFile();
+                $msg .= ". Line: ".$ex->getLine();
+                $this->logger->error($msg);
             }
         }
     }

@@ -33,6 +33,7 @@ use Psr\Log\LoggerInterface;
  * A driver that accepts job and process them locally on the webserver.
  *
  * @author Eric Vachaviolos <eric.v@vanillaforums.com>
+ * @author Eduardo Garcia Julia <eduardo.garciajulia@vanillaforums.com>
  * @package garden-message-queue
  */
 class JobDriver implements JobDriverInterface {
@@ -144,6 +145,12 @@ class JobDriver implements JobDriverInterface {
      * @return JobInterface The scheduled job
      */
     public function addJob($type, $args): JobInterface {
+
+        $jobClassInterfaces = class_implements($type, true);
+        if (!$jobClassInterfaces || !isset($jobClassInterfaces[RunnableJobInterface::class])) {
+            throw new Exception(sprintf("The job class '%s' cannot be found or doesn't implement `RunnableJobInterface`", $type));
+        }
+
         $job = new Job($type, $args);
 
         // Assign a unique job id right away
@@ -167,22 +174,12 @@ class JobDriver implements JobDriverInterface {
         $type = $job->getType();
         $args = $job->getArgs();
 
-        if (!class_exists($type)) {
-            $job->setStatus(JobStatus::ERROR);
-            throw new Exception(sprintf("The job class '%s' cannot be found", $type));
-        }
-
         // Prepare a job context for the current payload
         $jobContext = $this->di->get(JobContextInterface::class); /* @var $jobContext JobContextInterface */
         $jobContext->setData($args);
 
         // Resolve the job payload
         $jobPayload = $this->di->get($type);
-
-        if (! $jobPayload instanceof RunnableJobInterface) {
-            $job->setStatus(JobStatus::ERROR);
-            throw new Exception(sprintf("The job class '%s' does not implement the RunnableJobInterface", $type));
-        }
 
         $this->logger->notice('Job is executing: ' . $type . ' - ' .  serialize($args));
 
